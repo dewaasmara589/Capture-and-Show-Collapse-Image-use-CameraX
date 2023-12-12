@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clContent"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent="0.93"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.333"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <RelativeLayout
+                android:id="@+id/rl1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView1"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView2"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.333"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout">
+
+            <RelativeLayout
+                android:id="@+id/rl3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView3"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView4"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.333"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/linearLayout2">
+
+            <RelativeLayout
+                android:id="@+id/rl5"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView5"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <view
+                    android:id="@+id/previewView6"
+                    class="androidx.camera.view.PreviewView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <ImageView
+                    android:id="@+id/ivCapture6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSysDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvWarning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clContent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageButton
+        android:id="@+id/ibFlash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:visibility="invisible"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/clContent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btnCapture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Capture"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
