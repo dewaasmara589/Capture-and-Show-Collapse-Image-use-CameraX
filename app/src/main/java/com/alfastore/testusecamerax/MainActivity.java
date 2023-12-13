@@ -54,13 +54,15 @@ public class MainActivity extends AppCompatActivity {
     private ImageView[] IVS = new ImageView[6];
     private ImageCapture imageCapture;
 
-    private static final int CAMERA_PERMISSION_CODE = 1;
+    private static final int CAMERA_PERMISSION_CODE = 50;
 
     private int indexCamera = 0;
     private int indexImage = 0;
 
     private ImageView ibFlash;
     private boolean flash = false;
+
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,15 @@ public class MainActivity extends AppCompatActivity {
         IVS[3] = findViewById(R.id.ivCapture4);
         IVS[4] = findViewById(R.id.ivCapture5);
         IVS[5] = findViewById(R.id.ivCapture6);
+
+        for (int x = 1; x <= 5; x++){
+            IVS[x].setBackgroundColor(Color.BLACK);
+            IVS[x].setImageResource(R.drawable.ic_no_camera);
+            IVS[x].setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            IVS[x].requestLayout();
+            IVS[x].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            IVS[x].setVisibility(View.VISIBLE);
+        }
 
         btnCapture.setOnClickListener(view -> {
             capturePhoto();
@@ -176,18 +187,46 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (indexCamera > 0 && indexCamera < 6){
+            PVS[indexCamera].setVisibility(View.INVISIBLE);
+
+            IVS[indexCamera].setBackgroundColor(Color.BLACK);
+            IVS[indexCamera].setImageResource(R.drawable.ic_no_camera);
+            IVS[indexCamera].setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            IVS[indexCamera].requestLayout();
+            IVS[indexCamera].setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+            IVS[indexCamera].setVisibility(View.VISIBLE);
+
+            indexCamera--;
+            indexImage--;
+
+            IVS[indexImage].setVisibility(View.INVISIBLE);
+            PVS[indexCamera].setVisibility(View.VISIBLE);
+
+            cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+            cameraProviderFuture.addListener(() -> {
+                try {
+                    ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
+                    startCameraX(cameraProvider);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+            }, getExecutor());
+        }else {
+            super.onBackPressed();
+        }
+    }
+
     @SuppressLint("RestrictedApi")
     private void startCameraX(ProcessCameraProvider cameraProvider) {
-
-        cameraProvider.unbindAll();
-
         CameraSelector cameraSelector = new CameraSelector.Builder()
                 .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                 .build();
-
-        Preview preview = new Preview.Builder().build();
-
-        preview.setSurfaceProvider(PVS[indexCamera].getSurfaceProvider());
 
         if (flash){
             imageCapture = new ImageCapture.Builder()
@@ -202,10 +241,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Preview previewConfig = new Preview.Builder().build();
+        previewConfig.setSurfaceProvider(PVS[indexCamera].getSurfaceProvider());
 
-        Camera cam = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture, previewConfig);
-        if ( cam.getCameraInfo().hasFlashUnit() ) {
-            cam.getCameraControl().enableTorch(flash);
+        try {
+            cameraProvider.unbindAll();
+
+            Camera cam = cameraProvider.bindToLifecycle(this, cameraSelector, previewConfig, imageCapture);
+            if ( cam.getCameraInfo().hasFlashUnit() ) {
+                cam.getCameraControl().enableTorch(flash);
+            }
+        }catch (Exception e){
+            Log.e(TAG, "Use case binding failed", e);
         }
     }
 
@@ -218,8 +264,9 @@ public class MainActivity extends AppCompatActivity {
 
         BitmapDrawable ob = new BitmapDrawable(getResources(), bitmap);
 
+        IVS[indexImage].setImageResource(0);
         IVS[indexImage].setBackground(ob);
-        PVS[indexCamera].setVisibility(View.GONE);
+        PVS[indexCamera].setVisibility(View.INVISIBLE);
         IVS[indexImage].setVisibility(View.VISIBLE);
 
         if (indexCamera == 5 && indexImage == 5){
@@ -239,6 +286,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Start Camera
         if (indexCamera < 6 && indexImage < 6){
+            PVS[indexCamera].setVisibility(View.VISIBLE);
+            IVS[indexCamera].setVisibility(View.INVISIBLE);
             cameraProviderFuture = ProcessCameraProvider.getInstance(this);
             cameraProviderFuture.addListener(() -> {
                 try {
